@@ -1,13 +1,14 @@
 import axios from "axios";
 // import 'react-toastify/dist/ReactToastify.css';
 import { toast } from "react-toastify";
-export const fetchData = () => {
+
+export const fetchData = () => {    //action
     return (dispatch) => {
         axios.get(`http://localhost:3000/post`)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 dispatch({
-                    type: "FetchData",
+                    type: "FetchData",//action creator
                     data: response.data
                 })
             })

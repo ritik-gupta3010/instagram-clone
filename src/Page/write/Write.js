@@ -10,12 +10,12 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
 import userIcon from "../../image/post.jpg"
-import PropTypes from 'prop-types';
+
 import {createData } from "../../redux/actions/postActions";
 import {connect} from "react-redux";
 
 class Write extends React.Component {
- 
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +37,7 @@ class Write extends React.Component {
   handleClickClose = (e) => {
     console.log("close");
     e.preventDefault();
-    if ( this.state.desc == "" && this.state.location == "" && this.state.img == "") {
+    if ( this.state.desc === "" && this.state.location === "" && this.state.img === "") {
       this.setState({
         close: false
       })
@@ -51,12 +51,14 @@ class Write extends React.Component {
   };
 
   handleClose = () => {
+    console.log("close disagee write")
     this.setState({
       open: false
     });
   };
 
   handleCloseOnly = () => {
+    console.log("agree close")
     this.setState({
       open: false
     });
@@ -71,6 +73,7 @@ class Write extends React.Component {
 
 
   handleClick = (e) => {
+    console.log("post post")
     e.preventDefault();
     const post = {
       desc: this.state.desc,
@@ -82,7 +85,7 @@ class Write extends React.Component {
     this.props.createData(post);
     setTimeout(() => {
       window.location.href = "/";
-    }, 200);
+    }, 2000);
   }
 
   handleEmpty = (e) => {
@@ -92,20 +95,20 @@ class Write extends React.Component {
     let img = document.getElementById("img").value;
     let location = document.getElementById("location").value;
 
-    if (desc!="" && img!="" && location!=""){
+    if (desc!=="" && img!=="" && location!==""){
       document.getElementById("btn1").removeAttribute("disabled");
     }
   }
 
   render() {  
-
-    const {desc, location, img } = this.state;
+    const {openDiolog}=this.props;
+    const {desc, location, img,open } = this.state;
     const enable = desc.length > 0 && img.length > 0  && location.length>0
     console.log(enable);
     return (
       <>
         <Dialog
-          open={this.props.openDiolog}
+          open={openDiolog}
           id="diolog"
           Close={this.handleClose}
           fullWidth
@@ -141,15 +144,15 @@ class Write extends React.Component {
               <div className="writeFormGroup">
                 <div className="writeFormGroupLeft">
                   <img
-                    src={this.state.img}
+                    src={img}
                     className="img-Preview"
                     id="preview"
-                    
+                    alt='img'
                   />
                 </div>
                 <div className="writeFormGroupRight">
                   <div className="writeFormGroupRightProfile">
-                    <img src={userIcon} alt="image" style={{height:"35px",width:"35px" ,borderRadius:"50%",marginTop:"15px",marginLeft:"15px"}}/>
+                    <img src={userIcon} alt="ima" style={{height:"35px",width:"35px" ,borderRadius:"50%",marginTop:"15px",marginLeft:"15px"}}/>
                     <span style={{marginTop:"22px",marginLeft:"5px"}}>Ritik Gupta</span>
                   </div>
                   <input
@@ -162,7 +165,7 @@ class Write extends React.Component {
                     onChange={this.handleTextChange}
                     required
                   />
-                  <p style={{marginTop:"-3px" ,marginLeft:"12px"}}>{this.state.img == "" ? "*Required" : ""}</p>
+                  <p style={{marginTop:"-3px" ,marginLeft:"12px"}}>{img === "" ? "*Required" : ""}</p>
                   <textarea
                     className="writeInput2 writeText"
                     placeholder="Write a caption..."
@@ -172,7 +175,7 @@ class Write extends React.Component {
                     onChange={this.handleTextChange}
                     required
                   />
-                  <p style={{marginTop:"-3px" ,marginLeft:"12px"}}>{this.state.desc == "" ? "*Required" : ""}</p>
+                  <p style={{marginTop:"-3px" ,marginLeft:"12px"}}>{desc === "" ? "*Required" : ""}</p>
                   <input type="text" 
                   id='location'
                   name='location'
@@ -181,14 +184,14 @@ class Write extends React.Component {
                   className='location'
                   required
                   />
-                  <p style={{marginTop:"-3px" ,marginLeft:"12px"}}>{this.state.location == "" ? "*Required" : ""}</p>
+                  <p style={{marginTop:"-3px" ,marginLeft:"12px"}}>{location === "" ? "*Required" : ""}</p>
                 </div>
               </div>
             </form>
           </div>
         </Dialog>
         <Dialog
-          open={this.state.open}
+          open={open}
           aria-describedby="alert-dialog-slide-description">
           <DialogTitle>{"Do you want to cancel your create Post?"}</DialogTitle>
           <DialogContent>
@@ -205,13 +208,7 @@ class Write extends React.Component {
     );
   }
 }
-// Write.propTypes = {
-//   createData: PropTypes.func.isRequired
-// }
 
-// Write.defaultProps = {
-//   createData: () => { }
-// }
 const mapDispatchToProps = dispatch => ({
   createData: (data) => dispatch(createData(data))
 })

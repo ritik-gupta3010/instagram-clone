@@ -1,7 +1,5 @@
 import React from "react";
 import "./EditPost.css";
-import axios from "axios";
-import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import AppBar from "@mui/material/AppBar";
@@ -15,7 +13,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { width } from "@mui/system";
 import { Tooltip } from "@mui/material";
 import userIcon from "../../image/post.jpg";
 import {updateData} from "../../redux/actions/postActions";
@@ -23,7 +20,7 @@ import { connect } from "react-redux";
 
 toast.configure();
 
-class SinglePost extends React.Component {
+class EditPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,9 +69,9 @@ class SinglePost extends React.Component {
 
   handleCloseOpen = () => {
     if (
-      this.state.location == this.props.post.location &&
-      this.state.img == this.props.post.img &&
-      this.state.desc == this.props.post.desc
+      this.state.location === this.props.post.location &&
+      this.state.img === this.props.post.img &&
+      this.state.desc === this.props.post.desc
     ) {
       this.props.onClose();
     } else {
@@ -124,14 +121,15 @@ class SinglePost extends React.Component {
     this.handleClick();
   }
   render() {
-    const { img, desc, id, location } = this.state;
+    const {  desc, location } = this.state;
+    // const {post}=this.props;
     const enable =
       (location === this.props.post.location &&
         desc === this.props.post.desc &&
         this.state.img === this.props.post.img) ||
-      this.state.location == "" ||
-      this.state.desc == "" ||
-      this.state.img == "";
+      this.state.location === "" ||
+      this.state.desc ==="" ||
+      this.state.img === "";
     console.log(enable);
     return (
       <>
@@ -150,7 +148,7 @@ class SinglePost extends React.Component {
                   <span>
                     <button
                       className="writeSubmit2"
-                      onClick={this.handleClickUpdate}
+                      onClick={this.handleUpdateOpen}
                       disabled={true}
                     >
                       Post
@@ -160,7 +158,7 @@ class SinglePost extends React.Component {
               ) : (
                 <button
                   className="writeSubmit2"
-                  onClick={this.handleClickUpdate}
+                  onClick={this.handleUpdateOpen}
                 >
                   Post
                 </button>
@@ -177,13 +175,14 @@ class SinglePost extends React.Component {
                     src={this.state.img}
                     className="img-Preview"
                     id="preview"
+                    alt="img-pre"
                   />
                 </div>
                 <div className="writeFormGroupRight">
                   <div className="writeFormGroupRightProfile">
                     <img
                       src={userIcon}
-                      alt="image"
+                      alt="userProfile"
                       style={{
                         height: "35px",
                         width: "35px",
@@ -210,7 +209,7 @@ class SinglePost extends React.Component {
                         }
                       />
                       <p style={{ marginTop: "-3px", marginLeft: "12px" }}>
-                        {this.state.img == "" ? "*Required" : ""}
+                        {this.state.img === "" ? "*Required" : ""}
                       </p>
                     </>
                   ) : null}
@@ -226,7 +225,7 @@ class SinglePost extends React.Component {
                           this.setState({ [e.target.name]: e.target.value })
                         }
                       ></textarea>
-                      <p style={{ marginTop: "-3px", marginLeft: "12px" }}>{this.state.desc == "" ? "*Required" : ""}</p>
+                      <p style={{ marginTop: "-3px", marginLeft: "12px" }}>{this.state.desc === "" ? "*Required" : ""}</p>
                     </>
                   ) : (
                     <p className="writeInput2 writeText">{}</p>
@@ -243,7 +242,7 @@ class SinglePost extends React.Component {
                       }
                     ></input>
                     <p style={{ marginTop: "-3px", marginLeft: "12px" }}>
-                    {this.state.location == "" ? "*Required" : ""}
+                    {this.state.location === "" ? "*Required" : ""}
                   </p>
                   </>
                 ) : (
@@ -305,4 +304,4 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
     Postdata: state.singleData
 })
-export default connect(mapStateToProps,mapDispatchToProps)(SinglePost);
+export default connect(mapStateToProps,mapDispatchToProps)(EditPost);

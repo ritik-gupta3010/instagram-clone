@@ -1,8 +1,7 @@
 import React from 'react'
-import Post from "../post/Post"
+import Post from "../Post/Post"
 import Story from '../Story/Story';
 import './Posts.css'
-
 import {connect} from "react-redux"
 import {fetchData} from "../../redux/actions/postActions"
 
@@ -13,12 +12,12 @@ class Posts extends React.Component{
     }
     render()
     {
-        console.log(this.props.dataObject)
+        const{data}=this.props;
         return(
             <>
             <div className="posts">
                 <Story />
-                {(this.props.data.length != 0) ? this.props.data && this.props.data.map(post => (
+                {(data.length !== 0) ? data && data.map(post => (
                 <Post key={post.id} post={post} />
                 )) : <h2 className='error'>Sorry! No Post<br />*Create a new Post and see all your post here*</h2>}
             </div> 
@@ -27,12 +26,12 @@ class Posts extends React.Component{
     }
 }
 
-
+//mapStatetoProps is used to get the redux state variable which we are used in our react component
 const mapStatetoProps = (state) => {
     console.log(state)
-    return { data: state.data, error: state.error, isLoading: state.isLoading, dataObject: state.dataObject };
+    return {data: state.data};
 }
-
+//mapDispatchToProps is used to dispatch the action
 const mapDispatchToProps = dispatch => ({
     fetchData: () => dispatch(fetchData())
 })

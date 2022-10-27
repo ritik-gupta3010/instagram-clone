@@ -1,8 +1,7 @@
-import { fetchData } from "../actions/postActions"
+
 const initialState = {
     data: [],
     error: false,
-    isLoading: false,
     singleData:[],
     dataObject : [],
 }
@@ -11,18 +10,18 @@ const reducer = (state =initialState, action) => {
     switch (action.type) {
         case "FetchData":
             const obj = {};
-            action.data.forEach(element => {
-                obj[element._id] = element;
+            action.data.forEach(element => {//unique id 
+                obj[element.id] = element;
             })
             state.dataObject = obj;
             console.log(state.dataObject);
-            return { ...state, data: action.data, isLoading: true , dataObject: obj};
-        case "GETDATA":
-            const data = action.data;
-            if(data.length === 0){
-                window.location.href = "/";
-            }
-            return {...state, singleData: action.data , isLoading: true };
+            return { ...state, data: action.data , dataObject: obj};
+        // case "GETDATA":
+        //     const data = action.data;
+        //     if(data.length === 0){
+        //         window.location.href = "/";
+        //     }
+        //     return {...state, singleData: action.data  };
         case "DELETE":
             return { ...state}
         case "CREATE":
@@ -30,8 +29,8 @@ const reducer = (state =initialState, action) => {
             return { ...state , data:action.data}
         case "UPDATE":
             return { ...state}
-        // case "ERROR":
-        //     return { ...state, error: action.msg }
+        case "ERROR":
+            return { ...state, error: action.msg }
         // case "SET_LOADER":
         //     return {...state, isLoading: true};
         // case "CLOSE_LOADER":
