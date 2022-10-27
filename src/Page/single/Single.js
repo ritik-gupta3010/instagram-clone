@@ -13,7 +13,6 @@ export default class Single extends React.Component {
         <>
         <div className="single">
             <SinglePost />
-            {/* <Sidebar /> */}
         </div>
         
         </>

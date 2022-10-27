@@ -16,7 +16,9 @@
 
 .postTopIcon
 {
-    font-size: 150%;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
 }
 
 .postTopIconRight
@@ -30,27 +32,35 @@
 
 .postBottom
 {
-    font-size: 130%;
+    
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .postBottomIcon
 {
-    padding: 2%;
-    padding-right: 3%;
     
+    font-size: 125%;
+    padding-right: 10px;
+    padding-left: 5px;
 }
 
 .postBottomIconClick
 {
-    padding: 2%;
-    padding-right: 3%;
+    font-size: 125%;
+    padding-left: 5px;
+    padding-right: 10px;
     color: red;
     
 }
 .postBottomRight
 {
-    padding-left: 85%;
+    padding-left: -20%;
+    font-size: 125%;
+    margin-right: 8px;
+    margin-left: 4px;
 }
 .postImage
 {

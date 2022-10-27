@@ -27,7 +27,7 @@ function App() {
         {/* <Route path="/login">{user?<Home/>:<Login/>}</Route>//login */}
         {/* <Route path="/register">{user?<Home/>:<Register/>}</Route>//register */}
         {/* <Route path="/settings">{user?<Settings/>:<Register/>}</Route>//update your account */}
-        <Route path="/write">{user?<Write/>:<Register/>}</Route>//create post 
+        {/* <Route path="/write"><Write/></Route>//create post  */}
         <Route path="/post/:postId">
           <Single />
         </Route>

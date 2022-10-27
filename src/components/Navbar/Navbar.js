@@ -1,11 +1,22 @@
 import React from "react";
 import "./Navbar.css";
 import {Link} from "react-router-dom";
-
+import Write from "../../Page/write/Write"
 
 export default class Navbar extends React.Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      openDialoge:false,
+    }
+  }
+  openDialoge=()=>{
+    // console.log("ritik")
+    this.setState({openDialoge:!this.state.openDialoge})
+  }
   render() {
-    // const user=true;
+    const user=true;
     return (
       <>
         <nav>
@@ -32,7 +43,7 @@ export default class Navbar extends React.Component {
                 </li>
                 <li className="topListItem">
                   {/* <Link to="/write"><i className="fa fa-plus-square-o" aria-hidden="true"></i></Link> */}
-                  <a href="/write"style={{ textDecoration: 'none' ,color:"black"}}><i className="fa fa-plus-square-o" aria-hidden="true"></i></a>
+                  <button onClick={this.openDialoge}><i className="fa fa-plus-square-o" aria-hidden="true"></i></button>
                 </li>
                 <li className="topListItem">
                   <i className="fa fa-compass" aria-hidden="true"></i>
@@ -44,6 +55,7 @@ export default class Navbar extends React.Component {
             </div>
           </div>
         </nav>
+        <Write openDiolog={this.state.openDialoge } onClose={this.openDialoge} />
       </>
     );
   }
